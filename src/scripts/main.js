@@ -13,6 +13,18 @@ document.addEventListener('click', (e) => {
   x = Math.max(0, Math.min(x, wall.clientWidth - spider.clientWidth));
   y = Math.max(0, Math.min(y, wall.clientHeight - spider.clientHeight));
 
-  spider.style.left = `${x}px`;
-  spider.style.top = `${y}px`;
+  const leftWall = Math.round(wallEl.left);
+  const topWall = Math.round(wallEl.top);
+  const rightWall = leftWall + wallEl.width;
+  const bottomWall = topWall + wallEl.height;
+  const isInside =
+    e.clientX > leftWall &&
+    e.clientY < rightWall &&
+    e.clientY > topWall &&
+    e.clientY < bottomWall;
+
+  if (isInside) {
+    spider.style.left = `${x}px`;
+    spider.style.top = `${y}px`;
+  }
 });
